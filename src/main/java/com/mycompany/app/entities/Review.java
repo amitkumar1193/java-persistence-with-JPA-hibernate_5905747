@@ -19,12 +19,20 @@ public class Review {
   private int id;
 
   private String comment;
-
+  
   @ManyToOne
   @JoinColumn(name = "book_id")
   private Book book;
 
-  public int getId() {
+  public Book getBook() {
+	return book;
+}
+
+public void setBook(Book book) {
+	this.book = book;
+}
+
+public int getId() {
     return id;
   }
 
@@ -38,14 +46,6 @@ public class Review {
 
   public void setComment(String comment) {
     this.comment = comment;
-  }
-
-  public Book getBook() {
-    return book;
-  }
-
-  public void setBook(Book book) {
-    this.book = book;
   }
 
   @Override

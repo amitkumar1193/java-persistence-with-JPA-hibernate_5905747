@@ -27,13 +27,13 @@ public class Book {
 
   private String isbn;
 
-  @OneToOne
+@OneToOne
   @JoinColumn(name = "author_id")
   private Author author;
 
   @OneToMany(mappedBy = "book", cascade = CascadeType.ALL)
   private List<Review> reviews;
-
+  
   public int getId() {
     return id;
   }
@@ -66,16 +66,19 @@ public class Book {
     this.author = author;
   }
 
-  public List<Review> getReviews() {
-    return reviews;
-  }
 
-  public void setReviews(List<Review> reviews) {
-    this.reviews = reviews;
-  }
+  public List<Review> getReviews() {
+	return reviews;
+}
+
+public void setReviews(List<Review> reviews) {
+	this.reviews = reviews;
+}
+
 
   @Override
   public String toString() {
     return "Book [id=" + id + ", name=" + name + ", isbn=" + isbn + "]";
   }
+
 }
