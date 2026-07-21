@@ -1,14 +1,17 @@
 package com.mycompany.app.entities;
 
+import java.util.List;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.ManyToMany;
 import jakarta.persistence.Table;
 
 @Entity
-@Table(name = "user")
+@Table(name = "\"user\"")
 public class User {
 
   @Id
@@ -18,8 +21,19 @@ public class User {
 
   @Column(name = "user_name")
   private String name;
+  
+  @ManyToMany(mappedBy = "users")
+  private List<Group> groups;
 
-  public int getId() {
+  public List<Group> getGroups() {
+	return groups;
+}
+
+public void setGroups(List<Group> groups) {
+	this.groups = groups;
+}
+
+public int getId() {
     return id;
   }
 
