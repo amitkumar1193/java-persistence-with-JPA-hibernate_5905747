@@ -1,6 +1,9 @@
 package com.mycompany.app;
 
 import com.mycompany.app.entities.Book;
+import com.mycompany.app.entities.BookType;
+import com.mycompany.app.entities.Item;
+import com.mycompany.app.entities.ItemKey;
 
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
@@ -123,6 +126,24 @@ public class Main {
 
     try {
       em.getTransaction().begin();
+		
+		  BookType bkt = new BookType(); 
+		  bkt.setCode("C001"); 
+		  bkt.setSubCode("SC001");
+		  bkt.setTypeName("Fiction-Horror");
+		  
+		  em.persist(bkt);
+		 
+      
+      ItemKey id = new ItemKey();
+      id.setCode("ABC");
+      id.setNumber(100);
+
+      Item i = new Item();
+      i.setId(id);
+      i.setName("ABC-100");
+
+      em.persist(i);
 
       em.getTransaction().commit();
     } finally {
