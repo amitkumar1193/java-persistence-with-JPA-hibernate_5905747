@@ -4,10 +4,10 @@ import java.util.List;
 
 import com.mycompany.app.entities.Author;
 import com.mycompany.app.entities.Book;
-import com.mycompany.app.entities.CardPayment;
-import com.mycompany.app.entities.CashPayment;
+import com.mycompany.app.entities.Fiction;
 import com.mycompany.app.entities.Group;
 import com.mycompany.app.entities.Item;
+import com.mycompany.app.entities.NonFiction;
 import com.mycompany.app.entities.Review;
 import com.mycompany.app.entities.User;
 import com.mycompany.app.entities.keys.ItemKey;
@@ -299,16 +299,16 @@ public class Main {
 
     try {
       em.getTransaction().begin();
-      // Fiction f = new Fiction();
-      // f.setCode("F001");
-      // f.setSetting("Forest");
+      Fiction f = new Fiction();
+       f.setCode("F001");
+       f.setSetting("Forest");
 
-      // NonFiction nf = new NonFiction();
-      // nf.setCode("NF001");
-      // nf.setTopic("Science");
+       NonFiction nf = new NonFiction();
+       nf.setCode("NF001");
+       nf.setTopic("Science");
 
-      // em.persist(f);
-      // em.persist(nf);
+       em.persist(f);
+       em.persist(nf);
 
       em.getTransaction().commit();
     } finally {
