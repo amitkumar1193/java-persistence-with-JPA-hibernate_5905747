@@ -1,5 +1,6 @@
 package com.mycompany.app.entities;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import jakarta.persistence.CascadeType;
@@ -23,7 +24,19 @@ public class Teacher {
   @Column(name = "teacher_name")
   private String name;
 
-  public int getId() {
+  @OneToMany(cascade = CascadeType.ALL, mappedBy = "teacher")
+  private List<Review> reviews = new ArrayList<>();
+
+  
+  public List<Review> getReviews() {
+	return reviews;
+}
+
+public void setReviews(List<Review> reviews) {
+	this.reviews = reviews;
+}
+
+public int getId() {
     return id;
   }
 

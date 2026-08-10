@@ -1,5 +1,6 @@
 package com.mycompany.app;
 
+import java.util.ArrayList;
 import java.util.List;
 import com.mycompany.app.entities.ArtClass;
 import com.mycompany.app.entities.Review;
@@ -18,8 +19,8 @@ public class Main {
     // update(emf);
     // attachAndDetach(emf);
     // remove(emf);
-    oneToOneRelationship(emf);
-    oneToManyRelationship(emf);
+    //oneToOneRelationship(emf);
+   //oneToManyRelationship(emf);
     manyToManyRelationship(emf);
   }
 
@@ -83,14 +84,88 @@ public class Main {
   }
 
   private static void oneToOneRelationship(EntityManagerFactory emf) {
+	  EntityManager em = emf.createEntityManager();
+	    try {
+	      em.getTransaction().begin();
+	      ArtClass ac = new ArtClass();
+	     ac.setName("Painting");
+	     ac.setDayOfWeek("Tuesday");
+	     
+	     Teacher tch = new Teacher();
+	     tch.setName("Ravi");
+	     
+	     ac.setTeacher(tch);
 
+	      em.persist(ac);
+	      em.getTransaction().commit();
+	    } finally {
+	      em.close();
+	    }
   }
-
   private static void oneToManyRelationship(EntityManagerFactory emf) {
+	    EntityManager em = emf.createEntityManager();
+	    try {
+	        em.getTransaction().begin();
 
-  }
+	        Teacher tch1 = new Teacher();
+	        tch1.setName("Ravi");
+
+	        Teacher tch12 = new Teacher();
+	        tch12.setName("Ramesh");
+
+	        Review r1 = new Review();
+	        r1.setComment("good");
+	        r1.setRating(2);
+	        r1.setTeacher(tch1);
+	        tch1.getReviews().add(r1);
+
+	        Review r2 = new Review();
+	        r2.setComment("Very good");
+	        r2.setRating(5);
+	        r2.setTeacher(tch12);
+	        tch12.getReviews().add(r2);
+
+	        em.persist(tch1);
+	        em.persist(tch12);
+
+	        em.getTransaction().commit();
+	    } finally {
+	        em.close();
+	    }
+	}
+
 
   private static void manyToManyRelationship(EntityManagerFactory emf) {
-   
-  }
+	    EntityManager em = emf.createEntityManager();
+
+	    try {
+	        em.getTransaction().begin();
+
+	        // Create Students
+	        Student s1 = new Student();
+	        s1.setName("Amit");
+
+	        Student s2 = new Student();
+	        s2.setName("Ravi");
+
+	        // Create ArtClass
+	        ArtClass c1 = new ArtClass();
+	        c1.setName("Painting");
+	        c1.setDayOfWeek("Monday");
+
+	        // Add students to the class
+	        c1.getStudents().add(s1);
+	        c1.getStudents().add(s2);
+
+	        // Persist the class (students will also be persisted because ManyToMany has no cascade)
+	        em.persist(s1);
+	        em.persist(s2);
+	        em.persist(c1);
+
+	        em.getTransaction().commit();
+	    } finally {
+	        em.close();
+	    }
+	}
+
 }
