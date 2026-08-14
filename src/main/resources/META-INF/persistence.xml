@@ -10,9 +10,9 @@
             <property name="jakarta.persistence.jdbc.url" value="jdbc:postgresql://localhost:5432/library" />
             <property name="jakarta.persistence.jdbc.user" value="postgres" />
             <property name="jakarta.persistence.jdbc.password" value="password" />
-
             <property name="hibernate.show_sql" value="true" />
-            <property name="hibernate.hbm2ddl.auto" value="create" />
+            <!-- <property name="hibernate.hbm2ddl.auto" value="create" /> -->
+            
         </properties>
     </persistence-unit>
 

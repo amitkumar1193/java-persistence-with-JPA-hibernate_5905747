@@ -23,7 +23,6 @@ import com.mycompany.app.entities.keys.ItemKey;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.Persistence;
-import jakarta.persistence.Query;
 import jakarta.persistence.TypedQuery;
 
 public class Main {
@@ -463,27 +462,25 @@ public class Main {
 
     try {
 
-      em.getTransaction().begin();
+       em.getTransaction().begin();
 
-      // TypedQuery<BookType> q = em.createNamedQuery("bookType.findAll",
-      // BookType.class);
-      // List<BookType> bookTypes = q.getResultList();
+       TypedQuery<BookType> q = em.createNamedQuery("bookType.findAll", BookType.class);
+       List<BookType> bookTypes = q.getResultList();
 
-      // for (BookType bt : bookTypes) {
-      // System.out.println(bt);
-      // }
+       for (BookType bt : bookTypes) {
+           System.out.println(bt);
+       }
 
-      // TypedQuery<BookType> q2 =
-      // em.createNamedQuery("bookType.findBySubcodeAndName", BookType.class);
+       TypedQuery<BookType> q2 = em.createNamedQuery("bookType.findBySubcodeAndName", BookType.class);
 
-      // q2.setParameter("subCode", "SC002");
-      // q2.setParameter("name", "Fiction%");
+       q2.setParameter("subCode", "SC002");
+       q2.setParameter("name", "Fiction%");
 
-      // List<BookType> result2 = q2.getResultList();
+      List<BookType> result2 = q2.getResultList();
 
-      // for (BookType bt : result2) {
-      // System.out.println(bt);
-      // }
+       for (BookType bt : result2) {
+       System.out.println(bt);
+       }
 
       em.getTransaction().commit();
 
