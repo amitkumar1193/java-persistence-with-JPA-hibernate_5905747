@@ -3,6 +3,7 @@ package com.mycompany.app;
 import java.util.List;
 import java.util.Set;
 
+import com.mycompany.app.dto.BooksAndAuthors;
 import com.mycompany.app.entities.Address;
 import com.mycompany.app.entities.Author;
 import com.mycompany.app.entities.Book;
@@ -438,6 +439,19 @@ public class Main {
     try {
       em.getTransaction().begin();
 
+      String s = """
+      		SELECT NEW com.mycompany.app.dto.BooksAndAuthors(book,author,address)
+      		from Book book left join book.author author 
+      		"""; 
+      TypedQuery<BooksAndAuthors> query = em.createQuery(s, BooksAndAuthors.class);
+      
+      List<BooksAndAuthors> rs = query.getResultList();
+      
+      for(BooksAndAuthors ba: rs) {
+    	  System.out.println(ba.book() + "" + ba.author() + "" + ba.address());
+      }
+      
+      
       em.getTransaction().commit();
     } finally {
       em.close();
