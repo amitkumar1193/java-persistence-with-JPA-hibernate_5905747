@@ -673,8 +673,37 @@ public class Main {
 
     try {
       em.getTransaction().begin();
+      
+		/*
+		 * CriteriaBuilder builder = em.getCriteriaBuilder(); CriteriaQuery<BookType> cq
+		 * = builder.createQuery(BookType.class); Root<BookType> bookTypeRoot =
+		 * cq.from(BookType.class); cq.select(bookTypeRoot); TypedQuery<BookType> query
+		 * = em.createQuery(cq); query.getResultList().forEach(r->
+		 * System.out.println(r));
+		 */
+      
+		/*
+		 * CriteriaBuilder builder = em.getCriteriaBuilder(); CriteriaQuery<Object[]> cq
+		 * = builder.createQuery(Object[].class); Root<BookType> bookTypeRoot =
+		 * cq.from(BookType.class); cq.multiselect(bookTypeRoot.get("name"),
+		 * bookTypeRoot.get("code")); TypedQuery<Object[]> query = em.createQuery(cq);
+		 * query.getResultList().forEach(r-> System.out.println(r[0] + " " + r[1]));
+		 * em.getTransaction().commit();
+		 */
+      
+      CriteriaBuilder builder2 = em.getCriteriaBuilder();
+      CriteriaQuery<Object[]> cq2 = builder2.createQuery(Object[].class);
 
-      em.getTransaction().commit();
+      Root<Book> bookRoot = cq2.from(Book.class);
+
+      cq2.multiselect(bookRoot.get("id"), bookRoot.get("name"),
+          bookRoot.get("price"));
+      cq2.where(builder2.gt(bookRoot.get("price"), 1000));
+      cq2.orderBy(builder2.desc(bookRoot.get("price")));
+
+      TypedQuery<Object[]> query2 = em.createQuery(cq2);
+      query2.getResultList().forEach(r -> System.out.println(r[0] + " " + r[1] + " " + r[2]));
+
     } finally {
       em.close();
     }
